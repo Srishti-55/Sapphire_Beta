@@ -1,0 +1,31 @@
+.signupWrapper{
+    display: flex;
+    justify-content: center;
+}
+.signupCard{
+    width: 27vw;
+    margin-top: 2%
+
+}
+.sapp-logo{
+    display:flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: -30%;
+    margin-bottom: -50%;
+}
+.sapp-logo img{
+    width:15vm;
+
+}
+
+@media only screen and (max-width:620px){
+    .signupCard{
+        width: 60%;
+    }
+    .sapp-logo img{
+        width: 35%;
+    }
+}
+
