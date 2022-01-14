@@ -11,6 +11,8 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import {Link} from 'react-router-dom';
 import './Signup.css';
 import sapp from '../Assets/SapphireLogo.jpg';
+import {Link , useHistory} from 'react-router-dom';
+import {useState} from 'react';
 
 
 export default function Signup() {
@@ -26,6 +28,14 @@ export default function Signup() {
         
     })
     const classes=useStyles();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [file , setFile]=useState(null);
+    const [error, setError]=useState('');
+    const [ loading , setLoading]=useState('')
+    const history =useHistory()
+
   return (
       <div className="signupWrapper">
           
