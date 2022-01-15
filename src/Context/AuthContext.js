@@ -2,7 +2,7 @@ import React , {useState,useEffect} from 'react'
 //export const AuthContext=React.createContext();
 import {auth} from '../firebase';
 
-export const AuthContext =React.createContext();
+const AuthContext =React.createContext();
 
 
 
@@ -53,4 +53,4 @@ export default function AuthProvider({children}){
 
 }
 
-//export default AuthProvider
+export {AuthContext,AuthProvider}
