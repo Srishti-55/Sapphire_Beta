@@ -1,11 +1,11 @@
 import React from 'react';
+function Feed()
+{
+    return(
 
-function Feed(){
-    return (
-        <div>
-           <h1> Welcome to Feed</h1>
-        </div>
+        <h1>Welcome to feed</h1>
+
     );
 }
 
-export default from Feed;
+export default Feed;
