@@ -1,12 +1,12 @@
 import React , {useState,useEffect} from 'react'
-export const AuthContext=React.createContext();
-import {auth} from "../firebase";
+//export const AuthContext=React.createContext();
+import {auth} from '../firebase';
 
 export const AuthContext =React.createContext();
 
 
 
-export function AuthProvider(children){
+export default function AuthProvider({children}){
     const [user,setUser]=useState();
     const [loading,setLoading]= useState(true)
 
@@ -32,6 +32,8 @@ export function AuthProvider(children){
             unsub();
         }
     },[])
+    
+    
 
 
     const store={
@@ -50,3 +52,5 @@ export function AuthProvider(children){
 
 
 }
+
+//export default AuthProvider

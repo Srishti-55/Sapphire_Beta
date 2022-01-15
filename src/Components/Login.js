@@ -26,7 +26,7 @@ import {AuthContext} from '../Context/AuthContext';
 export default function Login() {
 
     const store=useContext(AuthContext)
-    console.log(store)
+    //console.log(store)
     const useStyles=makeStyles({
         text1:{
             color:'grey',
