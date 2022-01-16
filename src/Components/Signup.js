@@ -14,6 +14,7 @@ import sapp from '../Assets/SapphireLogo.jpg';
 import {useNavigate} from 'react-router-dom';
 import {useState,useContext} from 'react';
 import {AuthContext} from '../Context/AuthContext';
+import { database ,storage} from '../firebase';
 
 
 export default function Signup() {
@@ -31,7 +32,7 @@ export default function Signup() {
     const classes=useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
+    const [name, setName] = useState(false);
     const [file , setFile]=useState(null);
     const [error, setError]=useState('');
     const [ loading , setLoading]=useState('')
@@ -48,9 +49,45 @@ export default function Signup() {
         }
         try{
 
+            setError('')
+            setLoading(true)
             let userObj=await signup(email,password);
             let uid=userObj.user.uid
-            console.log(uid);
+            console.log("uid ------> ", uid);
+            const uploadTask=storage.ref('/users/${uid}/ProfileImage').put(file);
+            uploadTask.on('state_changed',fn1,fn2,fn3);
+            function fn1(snapshot)
+            {
+                let progress=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
+                console.log('Upload is $(progress) done.')
+            }
+            function fn2(error)
+            {
+                setError(error);
+                setTimeout(()=>{
+                    setError('')
+                },2000)
+                setLoading(false)
+                return ;
+               // console.log('error',error)
+            }
+            function fn3()
+            {
+                uploadTask.snapshot.ref.getDownloadURL().then((url)=>{
+                    console.log(url);
+                    database.users.doc(uid).set({
+                        email:email,
+                        userId:uid,
+                        fullname:name,
+                        profileUrl:url,
+                        createdAt:database.getTimeStamp,
+
+                    })
+                })
+                setLoading(false);
+                history('/')
+            }
+           // console.log(uid);
 
         }catch(err)
         {
@@ -59,7 +96,7 @@ export default function Signup() {
             return;
         }
     }
-
+    console.log("Error -----> ", error);
   return (
       <div className="signupWrapper">
           
@@ -72,10 +109,10 @@ export default function Signup() {
                             <Typography className={classes.text1} variant="subtitle1">
                                         Signup to see photos and videos from your friends
                             </Typography>
-                            {error!=' '&& <Alert severity="error">{error}</Alert>}
-                            <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth={true} margin ="dense" size="small" value={email}  Onchange={(e)=>setEmail(e.target.value)}/>
-                            <TextField id="outlined-basic" label="Password" variant="outlined" fullWidth={true} margin ="dense" size="small" value={password}  Onchange={(e)=>setPassword(e.target.value)} />
-                            <TextField id="outlined-basic" label="Full Name" variant="outlined" fullWidth={true} margin ="dense" size="small"  value={name}  Onchange={(e)=>setName(e.target.value)}/>
+                            {error!=''&& <Alert severity="error">{error}</Alert>}
+                            <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth={true} margin ="dense" size="small" value={email}  onChange={(e)=>setEmail(e.target.value)}/>
+                            <TextField id="outlined-basic" label="Password" variant="outlined" fullWidth={true} margin ="dense" size="small" value={password}  onChange={(e)=>setPassword(e.target.value)} />
+                            <TextField id="outlined-basic" label="Full Name" variant="outlined" fullWidth={true} margin ="dense" size="small"  value={name}  onChange={(e)=>setName(e.target.value)}/>
                             <Button size="small" color="secondary" fullWidth={true} variant="outlined" margin="dense" startIcon={<CloudUploadIcon />} component="label">
                               Upload Profile Image
                               <input type="file" accept="image/*" hidden onChange={(e)=>setFile(e.target.files[0])}/>
