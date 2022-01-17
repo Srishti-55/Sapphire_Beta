@@ -15,7 +15,8 @@ function App() {
         <Routes>
                <Route path="/login" element={<Login/>}/>
                <Route path="/signup" element={<Signup/>}/>
-              <Route path="/" element={<PrivateRoute><Feed/></PrivateRoute>}/> 
+              {/* <Route path="/" element={<PrivateRoute><Feed/></PrivateRoute>}/>*/} 
+              <Route path="/" element={<Feed/>}/>
             </Routes>
        </AuthProvider>
             
