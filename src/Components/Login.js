@@ -15,7 +15,7 @@ import {Link} from 'react-router-dom';
 import './Login.css';
 import sapp from '../Assets/SapphireLogo.jpg';
 import bgg from '../Assets/sapp.png';
-import img1 from '../Assets/img1.jpg';
+import img1 from '../Assets/imga.jpeg';
 import img2 from '../Assets/img2.jpg';
 import img3 from '../Assets/img3.jpg';
 import img4 from '../Assets/img4.jpg';
