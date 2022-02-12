@@ -24,7 +24,9 @@ export default function AuthProvider({children}){
     }
 
     useEffect(()=>{
+
         const unsub=auth.onAuthStateChanged((user)=>{
+          
             setUser(user);
             setLoading(false);
         })
