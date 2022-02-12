@@ -29,7 +29,7 @@ function UploadFile(props) {
         }
         let uid=uuidv4();
         setLoading(true)
-        const uploadTask=storage.ref('/posts/${uid}/{file.name}').put(file);
+        const uploadTask=storage.ref(`/posts/${uid}/${file.name}`).put(file);
             uploadTask.on('state_changed',fn1,fn2,fn3);
             function fn1(snapshot)
             {
